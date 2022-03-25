@@ -7,16 +7,16 @@
 
 import Foundation
 
-protocol IShowPassengersInteractor: AnyInteractor {
-    func loadPassengers() throws
+protocol ShowPassengersInteractorDelegate {
 
+	typealias Result = Swift.Result<ShowPassengerEntity?, Error>
+	
+	func didFinishLoadingPassengers(result: Result)
 }
 
-
-class ShowPassengersInteractor: IShowPassengersInteractor {
+class ShowPassengersInteractor {
    
-    var presenter: AnyPresenter?
-    var _presenter: IShowPassengersPresenter? { presenter as? IShowPassengersPresenter }
+	var delegate: ShowPassengersInteractorDelegate?
 
     func loadPassengers() throws {
         
@@ -25,20 +25,20 @@ class ShowPassengersInteractor: IShowPassengersInteractor {
             switch result {
             
             case .failure(let error):
-                self?._presenter?.didFinishLoadingPassengers(with: error)
-                break
+					self?.delegate?.didFinishLoadingPassengers(result: .failure(error))
+					break
                 
             case .success(let data):
                 
                 if let _data = data {
                     do{
                         let decoded = try ShowPassengerEntity.decode(_data)
-                        self?._presenter?.didLoadPassengers(decoded)
+						self?.delegate?.didFinishLoadingPassengers(result: .success(decoded))
                     }catch{
-                        self?._presenter?.didFinishLoadingPassengers(with: error)
-                    }
+						self?.delegate?.didFinishLoadingPassengers(result: .failure(error))
+					}
                 }else{
-                    self?._presenter?.didLoadPassengers(nil)
+					self?.delegate?.didFinishLoadingPassengers(result: .success(nil))
                 }
             }
         }

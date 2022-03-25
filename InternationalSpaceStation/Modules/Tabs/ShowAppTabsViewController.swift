@@ -8,22 +8,19 @@
 import UIKit
 
 
-class ShowAppTabsViewController: UITabBarController, UITabBarControllerDelegate, AnyView {
+class ShowAppTabsViewController: UITabBarController, UITabBarControllerDelegate {
     
-    var presenter: AnyPresenter?
-    var _presenter: IShowAppTabsPresenter? { presenter as? IShowAppTabsPresenter }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.delegate = self
-        
+		self.tabBar.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
-        self.viewControllers = _presenter?.getTabViewControllers()
+	
     }
 }

@@ -8,30 +8,30 @@
 import UIKit
 import MapKit
 
-protocol IShowLiveLocationViewController: AnyView {
-    func showLiveLocation(_ location: ShowLiveLocationEntity)
-    func showError(_ error: Error)
-    
-    var userCurrentLocation: ShowLocationEntity? { get set }
+
+protocol ShowLiveLocationViewControllerDelegate {
+	func viewIsReady()
 }
 
-class ShowLiveLocationViewController: UIViewController, IShowLiveLocationViewController {
+class ShowLiveLocationViewController: UIViewController {
 
-    var presenter: AnyPresenter?
-    
-    var _presenter: IShowLiveLocationPresenter? {
-        presenter as? IShowLiveLocationPresenter
-    }
 
     private var mapView: MKMapView!
     private var showDistance: UILabel!
-    
-    private var refreshPostion: Timer?
-    
+        
+	var delegate: ShowLiveLocationViewControllerDelegate?
     var iss_pointAnnotation: MKPointAnnotation?
     var user_pointAnnotation: MKPointAnnotation?
 
     var userCurrentLocation: ShowLocationEntity?
+	
+	convenience init() {
+		self.init(nibName: nil, bundle: nil)
+		
+		self.tabBarItem = UITabBarItem.init(
+			title: "ISS", image: "🛸".emojiToImage(), tag: 0
+		)
+	}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,27 +46,8 @@ class ShowLiveLocationViewController: UIViewController, IShowLiveLocationViewCon
         addCenterAction()
         addDistanceLabel()
         
-        // refreshing postion
-        
-        refreshPostion = .scheduledTimer(withTimeInterval: 1.5, repeats: true, block: { [weak self] _ in
-            self?._presenter?.onMapDidLoad()
-        })
-        
+		self.delegate?.viewIsReady()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        _presenter?.onMapDidLoad()
-
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        refreshPostion?.invalidate()
-    }
-    
     
     /// This shows ISS live location updated every 1.5 sec by a timer
     func showLiveLocation(_ location: ShowLiveLocationEntity) {

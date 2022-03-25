@@ -7,25 +7,34 @@
 
 import UIKit
 
-protocol IShowPassengersViewController: AnyView {
-    func showPassengers(_ passengers: ShowPassengerEntity)
-    func showError(_ error: Error)
+
+protocol ShowPassengersViewControllerDelegate {
+	
+	func viewIsReady()
 }
 
 
-class ShowPassengersViewController: UIViewController, IShowPassengersViewController {
+class ShowPassengersViewController: UIViewController {
  
-    var presenter: AnyPresenter?
-    var _presenter: IShowPassengersPresenter? {self.presenter as? IShowPassengersPresenter }
-
     private var tableView: UITableView!
-    private var refreshControl: UIRefreshControl!
+	var refreshControl: UIRefreshControl!
     
     var data: [ShowPassengerEntity.Passenger]?
+	var delegate: ShowPassengersViewControllerDelegate?
     
+	
+	convenience init() {
+		self.init(nibName: nil, bundle: nil)
+		
+		self.tabBarItem = UITabBarItem.init(
+			title: "Passengers", image: "🧑🏻‍✈️".emojiToImage(), tag: 1
+		)
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         
+		self.title = "ISS Passengers"
         tableView = .init()
         tableView.frame = self.view.bounds
         tableView.delegate = self
@@ -37,6 +46,8 @@ class ShowPassengersViewController: UIViewController, IShowPassengersViewControl
         tableView.addSubview(refreshControl)
         
         self.view.addSubview(tableView)
+		
+		self.delegate?.viewIsReady()
         
     }
     
@@ -52,7 +63,6 @@ class ShowPassengersViewController: UIViewController, IShowPassengersViewControl
     @objc func loadData() {
        
         self.refreshControl.beginRefreshing()
-        self._presenter?.loadData()
         
     }
 

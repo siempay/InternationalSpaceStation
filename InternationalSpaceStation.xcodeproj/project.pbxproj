@@ -9,15 +9,16 @@
 /* Begin PBXBuildFile section */
 		DD2CCC40271CC9F1006646DA /* ShowPassengersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CCC3F271CC9F1006646DA /* ShowPassengersViewController.swift */; };
 		DD2CCC46271CCAA1006646DA /* ShowPassengerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CCC45271CCAA1006646DA /* ShowPassengerEntity.swift */; };
-		DD2CCC4C271CCBB3006646DA /* ShowPassengersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CCC4B271CCBB3006646DA /* ShowPassengersPresenter.swift */; };
 		DD2CCC52271CCC52006646DA /* ShowPassengersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CCC51271CCC52006646DA /* ShowPassengersInteractor.swift */; };
-		DD2CCC5E271CCF7F006646DA /* ShowPassengersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CCC5D271CCF7F006646DA /* ShowPassengersRouter.swift */; };
 		DD2CCC66271CDE10006646DA /* ShowLocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2CCC65271CDE10006646DA /* ShowLocationEntity.swift */; };
 		DD2DAF35271CB40900D5996E /* ShowLiveLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2DAF34271CB40900D5996E /* ShowLiveLocationInteractor.swift */; };
+		DD38B76227ECBA5F007F6EDA /* ShowAppTabsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38B76127ECBA5F007F6EDA /* ShowAppTabsViewCoordinator.swift */; };
+		DD38B76427ECBB28007F6EDA /* ShowPassengersViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38B76327ECBB28007F6EDA /* ShowPassengersViewCoordinator.swift */; };
+		DD38B76727ECBC13007F6EDA /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38B76627ECBC13007F6EDA /* AppCoordinator.swift */; };
+		DD38B76927ECBD7E007F6EDA /* ShowLiveLocationViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38B76827ECBD7E007F6EDA /* ShowLiveLocationViewCoordinator.swift */; };
+		DD38B76B27ECD066007F6EDA /* ShowPassengersSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD38B76A27ECD066007F6EDA /* ShowPassengersSwiftUIView.swift */; };
 		DD58379F271CB93D0042907B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD58379E271CB93D0042907B /* Helpers.swift */; };
 		DD5837A9271CC4790042907B /* ShowAppTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5837A8271CC4790042907B /* ShowAppTabsViewController.swift */; };
-		DD5837AF271CC6600042907B /* ShowAppTabsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5837AE271CC6600042907B /* ShowAppTabsPresenter.swift */; };
-		DD5837BB271CC7E60042907B /* ShowAppTabsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5837BA271CC7E60042907B /* ShowAppTabsRouter.swift */; };
 		DD8CC1FF271CAA1400163968 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC1FE271CAA1400163968 /* AppDelegate.swift */; };
 		DD8CC201271CAA1400163968 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC200271CAA1400163968 /* SceneDelegate.swift */; };
 		DD8CC208271CAA1700163968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD8CC207271CAA1700163968 /* Assets.xcassets */; };
@@ -25,12 +26,10 @@
 		DD8CC216271CAA1700163968 /* InternationalSpaceStationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC215271CAA1700163968 /* InternationalSpaceStationTests.swift */; };
 		DD8CC221271CAA1700163968 /* InternationalSpaceStationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC220271CAA1700163968 /* InternationalSpaceStationUITests.swift */; };
 		DD8CC237271CAC8D00163968 /* ShowLiveLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC236271CAC8D00163968 /* ShowLiveLocationViewController.swift */; };
-		DD8CC23D271CACCB00163968 /* ShowLiveLocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC23C271CACCB00163968 /* ShowLiveLocationRouter.swift */; };
 		DD8CC246271CACE700163968 /* AnyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC245271CACE700163968 /* AnyRouter.swift */; };
 		DD8CC251271CAD0500163968 /* AnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC250271CAD0500163968 /* AnyView.swift */; };
 		DD8CC256271CAD1F00163968 /* AnyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC255271CAD1F00163968 /* AnyInteractor.swift */; };
 		DD8CC25B271CAD4F00163968 /* AnyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC25A271CAD4F00163968 /* AnyPresenter.swift */; };
-		DD8CC261271CAF2200163968 /* ShowLiveLocationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC260271CAF2100163968 /* ShowLiveLocationPresenter.swift */; };
 		DD8CC268271CAFB200163968 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC267271CAFB200163968 /* NetworkService.swift */; };
 		DD8CC26F271CB02900163968 /* EnumNetworkRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8CC26E271CB02900163968 /* EnumNetworkRoutes.swift */; };
 		DDB4DD50271CB79B00A87BF1 /* ShowLiveLocationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB4DD4F271CB79B00A87BF1 /* ShowLiveLocationEntity.swift */; };
@@ -56,15 +55,16 @@
 /* Begin PBXFileReference section */
 		DD2CCC3F271CC9F1006646DA /* ShowPassengersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengersViewController.swift; sourceTree = "<group>"; };
 		DD2CCC45271CCAA1006646DA /* ShowPassengerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengerEntity.swift; sourceTree = "<group>"; };
-		DD2CCC4B271CCBB3006646DA /* ShowPassengersPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengersPresenter.swift; sourceTree = "<group>"; };
 		DD2CCC51271CCC52006646DA /* ShowPassengersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengersInteractor.swift; sourceTree = "<group>"; };
-		DD2CCC5D271CCF7F006646DA /* ShowPassengersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengersRouter.swift; sourceTree = "<group>"; };
 		DD2CCC65271CDE10006646DA /* ShowLocationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLocationEntity.swift; sourceTree = "<group>"; };
 		DD2DAF34271CB40900D5996E /* ShowLiveLocationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLiveLocationInteractor.swift; sourceTree = "<group>"; };
+		DD38B76127ECBA5F007F6EDA /* ShowAppTabsViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAppTabsViewCoordinator.swift; sourceTree = "<group>"; };
+		DD38B76327ECBB28007F6EDA /* ShowPassengersViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengersViewCoordinator.swift; sourceTree = "<group>"; };
+		DD38B76627ECBC13007F6EDA /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		DD38B76827ECBD7E007F6EDA /* ShowLiveLocationViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLiveLocationViewCoordinator.swift; sourceTree = "<group>"; };
+		DD38B76A27ECD066007F6EDA /* ShowPassengersSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPassengersSwiftUIView.swift; sourceTree = "<group>"; };
 		DD58379E271CB93D0042907B /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		DD5837A8271CC4790042907B /* ShowAppTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAppTabsViewController.swift; sourceTree = "<group>"; };
-		DD5837AE271CC6600042907B /* ShowAppTabsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAppTabsPresenter.swift; sourceTree = "<group>"; };
-		DD5837BA271CC7E60042907B /* ShowAppTabsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAppTabsRouter.swift; sourceTree = "<group>"; };
 		DD8CC1FB271CAA1400163968 /* InternationalSpaceStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternationalSpaceStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD8CC1FE271CAA1400163968 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD8CC200271CAA1400163968 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,12 +78,10 @@
 		DD8CC220271CAA1700163968 /* InternationalSpaceStationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternationalSpaceStationUITests.swift; sourceTree = "<group>"; };
 		DD8CC222271CAA1700163968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD8CC236271CAC8D00163968 /* ShowLiveLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLiveLocationViewController.swift; sourceTree = "<group>"; };
-		DD8CC23C271CACCB00163968 /* ShowLiveLocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLiveLocationRouter.swift; sourceTree = "<group>"; };
 		DD8CC245271CACE700163968 /* AnyRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyRouter.swift; sourceTree = "<group>"; };
 		DD8CC250271CAD0500163968 /* AnyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyView.swift; sourceTree = "<group>"; };
 		DD8CC255271CAD1F00163968 /* AnyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyInteractor.swift; sourceTree = "<group>"; };
 		DD8CC25A271CAD4F00163968 /* AnyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPresenter.swift; sourceTree = "<group>"; };
-		DD8CC260271CAF2100163968 /* ShowLiveLocationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLiveLocationPresenter.swift; sourceTree = "<group>"; };
 		DD8CC267271CAFB200163968 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DD8CC26E271CB02900163968 /* EnumNetworkRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumNetworkRoutes.swift; sourceTree = "<group>"; };
 		DDB4DD4F271CB79B00A87BF1 /* ShowLiveLocationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLiveLocationEntity.swift; sourceTree = "<group>"; };
@@ -117,21 +115,13 @@
 		DD2CCC3D271CC9D3006646DA /* ShowPassengers */ = {
 			isa = PBXGroup;
 			children = (
-				DD2CCC5C271CCF72006646DA /* Router */,
+				DD2CCC3F271CC9F1006646DA /* ShowPassengersViewController.swift */,
+				DD38B76327ECBB28007F6EDA /* ShowPassengersViewCoordinator.swift */,
 				DD2CCC50271CCC3E006646DA /* Interactor */,
-				DD2CCC4A271CCBA3006646DA /* Presenter */,
 				DD2CCC44271CCA92006646DA /* Entities */,
-				DD2CCC3E271CC9E6006646DA /* View */,
+				DD38B76A27ECD066007F6EDA /* ShowPassengersSwiftUIView.swift */,
 			);
 			path = ShowPassengers;
-			sourceTree = "<group>";
-		};
-		DD2CCC3E271CC9E6006646DA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DD2CCC3F271CC9F1006646DA /* ShowPassengersViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		DD2CCC44271CCA92006646DA /* Entities */ = {
@@ -142,28 +132,12 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		DD2CCC4A271CCBA3006646DA /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				DD2CCC4B271CCBB3006646DA /* ShowPassengersPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		DD2CCC50271CCC3E006646DA /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
 				DD2CCC51271CCC52006646DA /* ShowPassengersInteractor.swift */,
 			);
 			path = Interactor;
-			sourceTree = "<group>";
-		};
-		DD2CCC5C271CCF72006646DA /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				DD2CCC5D271CCF7F006646DA /* ShowPassengersRouter.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		DD2DAF33271CB3F500D5996E /* Interactor */ = {
@@ -174,38 +148,21 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		DD38B76527ECBC0A007F6EDA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DD38B76627ECBC13007F6EDA /* AppCoordinator.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		DD5837A6271CC45F0042907B /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				DD5837B9271CC7D70042907B /* Router */,
-				DD5837AD271CC63C0042907B /* Presenter */,
-				DD5837A7271CC46D0042907B /* View */,
+				DD5837A8271CC4790042907B /* ShowAppTabsViewController.swift */,
+				DD38B76127ECBA5F007F6EDA /* ShowAppTabsViewCoordinator.swift */,
 			);
 			path = Tabs;
-			sourceTree = "<group>";
-		};
-		DD5837A7271CC46D0042907B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DD5837A8271CC4790042907B /* ShowAppTabsViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DD5837AD271CC63C0042907B /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				DD5837AE271CC6600042907B /* ShowAppTabsPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		DD5837B9271CC7D70042907B /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				DD5837BA271CC7E60042907B /* ShowAppTabsRouter.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		DD8CC1F2271CAA1400163968 = {
@@ -261,29 +218,12 @@
 		DD8CC234271CAC5100163968 /* LiveLocation */ = {
 			isa = PBXGroup;
 			children = (
+				DD8CC236271CAC8D00163968 /* ShowLiveLocationViewController.swift */,
+				DD38B76827ECBD7E007F6EDA /* ShowLiveLocationViewCoordinator.swift */,
 				DDB4DD4E271CB78B00A87BF1 /* Entities */,
 				DD2DAF33271CB3F500D5996E /* Interactor */,
-				DD8CC25F271CAF0F00163968 /* Presenter */,
-				DD8CC23B271CACB800163968 /* Router */,
-				DD8CC235271CAC7700163968 /* View */,
 			);
 			path = LiveLocation;
-			sourceTree = "<group>";
-		};
-		DD8CC235271CAC7700163968 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DD8CC236271CAC8D00163968 /* ShowLiveLocationViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		DD8CC23B271CACB800163968 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				DD8CC23C271CACCB00163968 /* ShowLiveLocationRouter.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		DD8CC244271CACD100163968 /* Protocols */ = {
@@ -295,14 +235,6 @@
 				DD8CC25A271CAD4F00163968 /* AnyPresenter.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		DD8CC25F271CAF0F00163968 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				DD8CC260271CAF2100163968 /* ShowLiveLocationPresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		DD8CC265271CAF9800163968 /* Resources */ = {
@@ -354,6 +286,7 @@
 		DDB4DD54271CB83A00A87BF1 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DD38B76527ECBC0A007F6EDA /* App */,
 				DD2CCC3D271CC9D3006646DA /* ShowPassengers */,
 				DD5837A6271CC45F0042907B /* Tabs */,
 				DD8CC234271CAC5100163968 /* LiveLocation */,
@@ -490,24 +423,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD2CCC5E271CCF7F006646DA /* ShowPassengersRouter.swift in Sources */,
 				DD8CC268271CAFB200163968 /* NetworkService.swift in Sources */,
+				DD38B76727ECBC13007F6EDA /* AppCoordinator.swift in Sources */,
 				DD2CCC66271CDE10006646DA /* ShowLocationEntity.swift in Sources */,
 				DD2CCC46271CCAA1006646DA /* ShowPassengerEntity.swift in Sources */,
+				DD38B76927ECBD7E007F6EDA /* ShowLiveLocationViewCoordinator.swift in Sources */,
+				DD38B76227ECBA5F007F6EDA /* ShowAppTabsViewCoordinator.swift in Sources */,
+				DD38B76B27ECD066007F6EDA /* ShowPassengersSwiftUIView.swift in Sources */,
 				DD58379F271CB93D0042907B /* Helpers.swift in Sources */,
 				DD8CC1FF271CAA1400163968 /* AppDelegate.swift in Sources */,
 				DD8CC237271CAC8D00163968 /* ShowLiveLocationViewController.swift in Sources */,
-				DD8CC23D271CACCB00163968 /* ShowLiveLocationRouter.swift in Sources */,
-				DD5837AF271CC6600042907B /* ShowAppTabsPresenter.swift in Sources */,
 				DD2DAF35271CB40900D5996E /* ShowLiveLocationInteractor.swift in Sources */,
-				DD2CCC4C271CCBB3006646DA /* ShowPassengersPresenter.swift in Sources */,
+				DD38B76427ECBB28007F6EDA /* ShowPassengersViewCoordinator.swift in Sources */,
 				DD8CC246271CACE700163968 /* AnyRouter.swift in Sources */,
 				DD8CC201271CAA1400163968 /* SceneDelegate.swift in Sources */,
-				DD8CC261271CAF2200163968 /* ShowLiveLocationPresenter.swift in Sources */,
 				DD5837A9271CC4790042907B /* ShowAppTabsViewController.swift in Sources */,
 				DD8CC25B271CAD4F00163968 /* AnyPresenter.swift in Sources */,
 				DD8CC256271CAD1F00163968 /* AnyInteractor.swift in Sources */,
-				DD5837BB271CC7E60042907B /* ShowAppTabsRouter.swift in Sources */,
 				DD8CC251271CAD0500163968 /* AnyView.swift in Sources */,
 				DD8CC26F271CB02900163968 /* EnumNetworkRoutes.swift in Sources */,
 				DD2CCC40271CC9F1006646DA /* ShowPassengersViewController.swift in Sources */,

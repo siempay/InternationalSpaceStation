@@ -9,6 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+	var appCoordinator: AppCoordinator!
     var window: UIWindow?
 
 
@@ -18,10 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let router = ShowAppTabsRouter.start()
+		self.appCoordinator = .init()
         
         let _window = UIWindow(windowScene: windowScene)
-        _window.rootViewController = router.entry
+		_window.rootViewController = appCoordinator.makeView()
         
         self.window = _window
         self.window?.makeKeyAndVisible()

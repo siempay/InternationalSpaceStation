@@ -14,7 +14,8 @@ struct ShowPassengerEntity: Codable {
     let number: Int
     let people: [Passenger]
     
-    struct Passenger: Codable {
+	struct Passenger: Codable, Equatable {
+		
         let craft: String
         let name: String
     }

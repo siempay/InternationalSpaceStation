@@ -8,16 +8,15 @@
 import Foundation
 import CoreLocation
 
-protocol IShowLiveLocationInteractor: AnyInteractor {
-    func fetchISSLiveLocation(_ completion: @escaping (Result<ShowLiveLocationEntity?, Error>) -> ()) throws
+protocol ShowLiveLocationInteractorDelegate {
     
-    func getUserCurrentLocaltion()
+	func didGetUserCurrentLocaltion(location: ShowLocationEntity?)
+	func didGetUserCurrentLocaltionFailed(error: Error)
 }
 
-class ShowLiveLocationInteractor: NSObject, IShowLiveLocationInteractor, CLLocationManagerDelegate {
+class ShowLiveLocationInteractor: NSObject, CLLocationManagerDelegate {
 
-    var presenter: AnyPresenter?
-    var _presenter: IShowLiveLocationPresenter? { presenter as? IShowLiveLocationPresenter }
+    var delegate: ShowLiveLocationInteractorDelegate?
 
     
     // Create a CLLocationManager and assign a delegate
@@ -63,8 +62,6 @@ class ShowLiveLocationInteractor: NSObject, IShowLiveLocationInteractor, CLLocat
 
     }
     
-    
-    
     func locationManager(
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
@@ -73,13 +70,13 @@ class ShowLiveLocationInteractor: NSObject, IShowLiveLocationInteractor, CLLocat
         print(#function, Date(), locations)
         guard let coordinate = locations.first?.coordinate else { return }
         
-        self._presenter?.updateUserLocation(coordinate: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
+		self.delegate?.didGetUserCurrentLocaltion(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
         print(#function, error.localizedDescription)
-        self._presenter?.updateUserLocation(coordinate: nil)
+		self.delegate?.didGetUserCurrentLocaltionFailed(error: error)
         
     }
 }
