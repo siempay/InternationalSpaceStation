@@ -11,19 +11,20 @@ import MapKit
 
 protocol ShowLiveLocationViewControllerDelegate {
 	func viewIsReady()
+	func getUserLocaltion() -> (lt: Double, lg: Double)?
+	func getISSLiveLocation() -> (lt: Double, lg: Double)?
+	func getDistanceToString() -> (distance: String?, color: UIColor)?
 }
 
 class ShowLiveLocationViewController: UIViewController {
 
 
-    private var mapView: MKMapView!
-    private var showDistance: UILabel!
-        
-	var delegate: ShowLiveLocationViewControllerDelegate?
-    var iss_pointAnnotation: MKPointAnnotation?
-    var user_pointAnnotation: MKPointAnnotation?
+	private lazy var mapView: MKMapView = { .init(frame: view.bounds) }()
+	private lazy var showDistance: UILabel = addDistanceLabel()
 
-    var userCurrentLocation: ShowLocationEntity?
+	var delegate: ShowLiveLocationViewControllerDelegate?
+	private var iss_pointAnnotation: MKPointAnnotation?
+	private var user_pointAnnotation: MKPointAnnotation?
 	
 	convenience init() {
 		self.init(nibName: nil, bundle: nil)
@@ -35,41 +36,38 @@ class ShowLiveLocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		title = "ISS live location"
         
         // add Map
-        
-        mapView = .init()
-        mapView.frame = view.bounds
         view.addSubview(mapView)
-        
-        // add actions
-        addCenterAction()
-        addDistanceLabel()
-        
+		self.addCenterAction()
+		
 		self.delegate?.viewIsReady()
     }
     
     /// This shows ISS live location updated every 1.5 sec by a timer
-    func showLiveLocation(_ location: ShowLiveLocationEntity) {
+    func showLiveLocation() {
         
-        //print(Date(), "location", location)
-        self.appendISSLocationMarker(location: location)
+		let issLocation = self.delegate?.getISSLiveLocation()
+        self.appendISSLocationMarker(location: issLocation)
         
-        
+        let userLocation = self.delegate?.getUserLocaltion()
         // Show user marker
-        self.appendUserLocationMarker()
-        
-        self.showISSDistanceFromUser()
-
+        self.appendUserLocationMarker(location: userLocation)
+		
+		let info = self.delegate?.getDistanceToString()
+		self.showDistance.text = info?.distance
+		self.showDistance.backgroundColor = info?.color ?? .white
     }
 
-    func appendISSLocationMarker(location: ShowLiveLocationEntity) {
+    func appendISSLocationMarker(location: (lt: Double, lg: Double)?) {
         
-        guard let iss_position = convertLocation(location: location) else { return }
+		guard let iss_position = location else { return }
         
         let addAnotation = MKPointAnnotation()
         addAnotation.title = "ISS"
-        addAnotation.coordinate = iss_position
+		addAnotation.coordinate = .init(latitude: iss_position.lt, longitude: iss_position.lg)
         
         if let ano = self.iss_pointAnnotation {
             self.mapView.removeAnnotation(ano)
@@ -79,70 +77,35 @@ class ShowLiveLocationViewController: UIViewController {
         
         if iss_pointAnnotation == nil {
             // center to the ISS if this is first time to show
-            mapView.setCenter(iss_position, animated: true)
+            mapView.setCenter(addAnotation.coordinate, animated: true)
         }
         
         self.iss_pointAnnotation = addAnotation
 
     }
     
-    func appendUserLocationMarker() {
+    func appendUserLocationMarker(location: (lt: Double, lg: Double)?) {
         
         if let ano = user_pointAnnotation {
             mapView.removeAnnotation(ano)
         }
         
-        if let location = userCurrentLocation {
-            user_pointAnnotation = MKPointAnnotation()
-            user_pointAnnotation?.title = "You"
-            user_pointAnnotation?.coordinate = .init(latitude: location.latitude, longitude: location.longitude)
+		if let location = location {
+            user_pointAnnotation = createPointe(location: location)
             self.mapView.addAnnotation(user_pointAnnotation!)
         }
-        
     }
-    // MARK:- Map location
-    
-    /// Convert entity to map coordinate
-    func convertLocation(location: ShowLiveLocationEntity) -> CLLocationCoordinate2D? {
-        
-        let iss_position = location.iss_position
-        guard
-            let lt = Double(iss_position.latitude),
-            let lg = Double(iss_position.longitude)
-        
-        else { return nil }
-        
-        return .init(
-            latitude: lt, longitude: lg
-        )
-    }
-    
-    func showISSDistanceFromUser() {
-        
-        guard let user = self.userCurrentLocation else { return }
-        guard let iss = self.iss_pointAnnotation?.coordinate else { return }
-
-        let userLocation = CLLocation(latitude: user.latitude, longitude: user.latitude)
-        let iss_location = CLLocation(latitude: iss.latitude, longitude: iss.latitude)
-        
-        let result = userLocation.distance(from: iss_location)
-        
-        let formatter = MKDistanceFormatter()
-         
-        let string = formatter.string(fromDistance: result)
-        self.showDistance.text = "Distance from ISS: \(string)"
-        
-        print("distance", result)
-     
-        // distance in meters
-        if result <= 10000 {
-            self.showDistance.text = "ISS is above you now"
-            self.showDistance.backgroundColor = .systemGreen
-        }else{
-            self.showDistance.backgroundColor = .white
-        }
-    }
-    
+	
+	func createPointe(location: (lt: Double, lg: Double)) -> MKPointAnnotation {
+		
+		let user_pointAnnotation = MKPointAnnotation()
+		user_pointAnnotation.title = "You"
+		user_pointAnnotation.coordinate = .init(
+			latitude: location.lt, longitude: location.lg
+		)
+		return user_pointAnnotation
+	}
+	
     // MARK: - Actions
     
     @objc func centerPosition() {
@@ -163,18 +126,17 @@ class ShowLiveLocationViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         button.addTarget(self, action: #selector(centerPosition), for: .touchUpInside)
         button.layer.cornerRadius = 5
-        
-        view.addSubview(button)
-        
+                
+		self.view.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
-        button.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 5).isActive = true
+		button.anchorTo(self.view.safeAreaLayoutGuide, anchors: .top, constant: 5)
+		button.anchorTo(self.view.safeAreaLayoutGuide, anchors: .leading, constant: 5)
         button.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
     }
     
-    func addDistanceLabel() {
+    func addDistanceLabel() -> UILabel {
         
         let label = UILabel()
         label.text = "Distance..."
@@ -184,16 +146,15 @@ class ShowLiveLocationViewController: UIViewController {
         label.lineBreakMode = .byCharWrapping
         label.backgroundColor = .white
         label.layer.cornerRadius = 5
-        
-        view.addSubview(label)
-        
+
+		self.view.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
-        label.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5).isActive = true
+		label.anchorTo(self.view.safeAreaLayoutGuide, anchors: .top, constant: 5)
+		label.anchorTo(self.view.safeAreaLayoutGuide, anchors: .trailing, constant: 5)
         label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
         label.heightAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
 
-        self.showDistance = label
+        return label
     }
     
 }

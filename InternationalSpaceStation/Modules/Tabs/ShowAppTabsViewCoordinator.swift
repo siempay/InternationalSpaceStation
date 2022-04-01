@@ -8,10 +8,14 @@
 import Foundation
 import UIKit
 
+protocol ShowAppTabsViewCoordinatorDelegate {
+	
+}
 
 class ShowAppTabsViewCoordinator {
 	
-	private var view: ShowAppTabsViewController!
+	private var view: ShowAppTabsViewController?
+	var delegate: ShowAppTabsViewCoordinatorDelegate?
 	
 	let showPassengersViewCoordinator: ShowPassengersViewCoordinator
 	let showLiveLocationViewCoordinator: ShowLiveLocationViewCoordinator
@@ -21,13 +25,16 @@ class ShowAppTabsViewCoordinator {
 		showLiveLocationViewCoordinator = .init()
 	}
 	
-	func makeView() -> UIViewController {
+	func makeView() -> UIViewController? {
 	
 		self.view = .init()
-		self.view.viewControllers = [
+		let viewControllers = [
 			showLiveLocationViewCoordinator.makeView(),
-			UINavigationController(rootViewController: showPassengersViewCoordinator.makeView()),
+			showPassengersViewCoordinator.makeView(),
 		]
+		
+		self.view?.viewControllers = viewControllers.compactMap({ $0 }).map({ UINavigationController(rootViewController: $0) })
+		
 		return self.view
 	}
 }
