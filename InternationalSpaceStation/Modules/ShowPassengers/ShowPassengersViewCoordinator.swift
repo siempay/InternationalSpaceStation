@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 
-class ShowPassengersViewCoordinator: ShowPassengersViewControllerDelegate, ShowPassengersInteractorDelegate {
+class ShowPassengersViewCoordinator: ShowPassengersViewControllerDelegate {
 	
-	private var view: ShowPassengersViewController!
+	private var view: ShowPassengersViewController?
 	private let showPassengersInteractor: ShowPassengersInteractor
 	
 	init() {
@@ -20,10 +20,10 @@ class ShowPassengersViewCoordinator: ShowPassengersViewControllerDelegate, ShowP
 	}
 	
 	
-	func makeView() -> UIViewController {
+	func makeView() -> UIViewController? {
 		
 		self.view = .init()
-		self.view.delegate = self
+		self.view?.delegate = self
 		return self.view
 	}
 	
@@ -39,39 +39,35 @@ class ShowPassengersViewCoordinator: ShowPassengersViewControllerDelegate, ShowP
 		
 		do{
 			
-			self.view.refreshControl.beginRefreshing()
+			self.view?.startRefreshing()
 			try self.showPassengersInteractor.loadPassengers()
 			
 		}catch {
-			self.view.showError(error)
+			self.view?.showError(error)
 		}
 	}
 	
+}
 
-	// MARK: - interator
+// MARK: - interator
+extension ShowPassengersViewCoordinator: ShowPassengersInteractorDelegate {
 	
-	func didFinishLoadingPassengers(result: ShowPassengersInteractorDelegate.Result) {
-		
+	func didFinishLoadingPassengers(success passengerEntity: ShowPassengerEntity?) {
+
 		DispatchQueue.main.async { [weak self] in
-			self?.view.refreshControl.endRefreshing()
-		}
-		
-		switch result {
-			case .success(let success):
-				
-				DispatchQueue.main.async { [weak self] in
-					
-					if let passengers = success {
-						self?.view.showPassengers(passengers)
-					}
-				}
-				break
-			case .failure(let failure):
-				
-				DispatchQueue.main.async { [weak self] in
-					self?.view.showError(failure)
-				}
-				break
+			self?.view?.stopRefreshing()
+
+			if let passengers = passengerEntity {
+				self?.view?.showPassengers(passengers)
+			}
 		}
 	}
+	
+	func didFinishLoadingPassengers(failure error: Error) {
+		DispatchQueue.main.async { [weak self] in
+			self?.view?.stopRefreshing()
+			self?.view?.showError(error)
+		}
+	}
+	
 }

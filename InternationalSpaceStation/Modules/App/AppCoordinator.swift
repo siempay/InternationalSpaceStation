@@ -14,10 +14,10 @@ class AppCoordinator {
 	private let tab: ShowAppTabsViewCoordinator
 	
 	init() {
-		self.tab = .init()
+		self.tab = ShowAppTabsViewCoordinatorFactory.createTab()
 	}
 	
-	func makeView() -> UIViewController {
+	func makeView() -> UIViewController? {
 		
 		self.tab.makeView()
 	}

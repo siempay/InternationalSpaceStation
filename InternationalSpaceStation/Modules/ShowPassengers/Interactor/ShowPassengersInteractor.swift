@@ -8,10 +8,9 @@
 import Foundation
 
 protocol ShowPassengersInteractorDelegate {
-
-	typealias Result = Swift.Result<ShowPassengerEntity?, Error>
-	
-	func didFinishLoadingPassengers(result: Result)
+ 
+	func didFinishLoadingPassengers(failure error: Error)
+	func didFinishLoadingPassengers(success passengerEntity: ShowPassengerEntity?)
 }
 
 class ShowPassengersInteractor {
@@ -24,22 +23,22 @@ class ShowPassengersInteractor {
             
             switch result {
             
-            case .failure(let error):
-					self?.delegate?.didFinishLoadingPassengers(result: .failure(error))
+				case .failure(let error):
+					self?.delegate?.didFinishLoadingPassengers(failure: error)
 					break
                 
-            case .success(let data):
+				case .success(let data):
                 
-                if let _data = data {
-                    do{
-                        let decoded = try ShowPassengerEntity.decode(_data)
-						self?.delegate?.didFinishLoadingPassengers(result: .success(decoded))
-                    }catch{
-						self?.delegate?.didFinishLoadingPassengers(result: .failure(error))
+					if let _data = data {
+						do{
+							let decoded = try ShowPassengerEntity.decode(_data)
+							self?.delegate?.didFinishLoadingPassengers(success: decoded)
+						}catch{
+							self?.delegate?.didFinishLoadingPassengers(failure: error)
+						}
+					}else{
+						self?.delegate?.didFinishLoadingPassengers(success: nil)
 					}
-                }else{
-					self?.delegate?.didFinishLoadingPassengers(result: .success(nil))
-                }
             }
         }
     }

@@ -44,3 +44,19 @@ extension String {
         return image
     }
 }
+
+extension UIView {
+	
+	
+	func anchorTo(_ to: Any!, anchors: NSLayoutConstraint.Attribute..., constant: CGFloat = 0) {
+		
+		for anchor in anchors {
+			
+			let c = constant * (anchor == .trailing || anchor == .bottom ? -1 : 1)
+			
+			NSLayoutConstraint.init(
+				item: self, attribute: anchor, relatedBy: .equal, toItem: to, attribute: anchor, multiplier: 1, constant: c
+			).isActive = true
+		}
+	}
+}

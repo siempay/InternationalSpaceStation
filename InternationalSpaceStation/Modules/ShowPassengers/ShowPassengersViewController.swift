@@ -16,8 +16,21 @@ protocol ShowPassengersViewControllerDelegate {
 
 class ShowPassengersViewController: UIViewController {
  
-    private var tableView: UITableView!
-	var refreshControl: UIRefreshControl!
+	private lazy var tableView: UITableView = {
+		let tableView = UITableView.init()
+		tableView.frame = self.view.bounds
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+		return tableView
+	}()
+	
+	private lazy var refreshControl: UIRefreshControl = {
+		
+		let refreshControl = UIRefreshControl.init()
+		refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+		return refreshControl
+	}()
     
     var data: [ShowPassengerEntity.Passenger]?
 	var delegate: ShowPassengersViewControllerDelegate?
@@ -35,17 +48,10 @@ class ShowPassengersViewController: UIViewController {
         super.viewDidLoad()
         
 		self.title = "ISS Passengers"
-        tableView = .init()
-        tableView.frame = self.view.bounds
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+		self.view.addSubview(tableView)
+		
+		self.tableView.addSubview(refreshControl)
         
-        refreshControl = .init()
-        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
-        tableView.addSubview(refreshControl)
-        
-        self.view.addSubview(tableView)
 		
 		self.delegate?.viewIsReady()
         
@@ -80,6 +86,15 @@ class ShowPassengersViewController: UIViewController {
         self.refreshControl.endRefreshing()
     }
     
+	// MARK: - Refersh control
+	
+	func startRefreshing() {
+		self.refreshControl.beginRefreshing()
+	}
+	
+	func stopRefreshing() {
+		self.refreshControl.endRefreshing()
+	}
 }
 
 extension ShowPassengersViewController: UITableViewDelegate, UITableViewDataSource {

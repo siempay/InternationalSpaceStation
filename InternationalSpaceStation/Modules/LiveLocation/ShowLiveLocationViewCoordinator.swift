@@ -7,11 +7,14 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class ShowLiveLocationViewCoordinator: ShowLiveLocationViewControllerDelegate, ShowLiveLocationInteractorDelegate {
+class ShowLiveLocationViewCoordinator: ShowLiveLocationViewControllerDelegate {
 	
 	private var view: ShowLiveLocationViewController!
-	
+	private var userCurrentLocation: ShowLocationEntity?
+	private var issCurrentLocation: ShowLiveLocationEntity?
+
 	private var refreshPostion: Timer!
 	private let showLiveLocationInteractor: ShowLiveLocationInteractor
 	
@@ -55,28 +58,28 @@ class ShowLiveLocationViewCoordinator: ShowLiveLocationViewControllerDelegate, S
 	
 	func fetchISSLiveLocation() throws {
 		
-		try showLiveLocationInteractor.fetchISSLiveLocation({ result in
-			
-			DispatchQueue.main.async { [weak self] in
-				switch result {
-						
-					case .failure(let error):
-						
-						self?.view.showError(error)
-						break
-					case .success(let location):
-						
-						if let _location = location {
-							self?.view.showLiveLocation(_location)
-						}
-						break
-				}
-			}
-		})
+		try showLiveLocationInteractor.fetchISSLiveLocation()
 				
 	}
 	
-	// MARK: - Interactor
+}
+
+// MARK: - Interactor
+
+extension ShowLiveLocationViewCoordinator: ShowLiveLocationInteractorDelegate {
+	
+	func didGetISSCurrentLocaltion(location: ShowLiveLocationEntity?) {
+		
+		self.issCurrentLocation = location
+		
+		DispatchQueue.main.async { [weak self] in
+			self?.view.showLiveLocation()
+		}
+	}
+	
+	func didGetISSCurrentLocaltionFailed(error: Error) {
+		self.view.showError(error)
+	}
 	
 	func didGetUserCurrentLocaltionFailed(error: Error) {
 		
@@ -85,6 +88,32 @@ class ShowLiveLocationViewCoordinator: ShowLiveLocationViewControllerDelegate, S
 	
 	func didGetUserCurrentLocaltion(location: ShowLocationEntity?) {
 		
-		self.view.userCurrentLocation = location
+		self.userCurrentLocation = location
+	}
+	
+	func getDistanceToString() -> (distance: String?, color: UIColor)? {
+
+		guard let user_location = ShowLiveLocationFormatter.formatUserLocation(location: self.userCurrentLocation) else { return nil }
+		guard let iss_location = ShowLiveLocationFormatter.formatLiveLocation(location: self.issCurrentLocation?.iss_position) else { return nil }
+
+		let info = showLiveLocationInteractor.isISSAboveUserLocation(userLocation: user_location, issLocation: iss_location)
+		
+		let text = ShowLiveLocationFormatter.formatResult(info: info)
+		
+		return (text, info.isAboveUser ? .red : .white)
+		
+	}
+	
+	func getUserLocaltion() -> (lt: Double, lg: Double)? {
+		
+		guard let localtion = self.userCurrentLocation else { return nil }
+		
+		return (localtion.latitude, localtion.longitude)
+	}
+	
+	func getISSLiveLocation() -> (lt: Double, lg: Double)? {
+
+		guard let location = self.issCurrentLocation?.iss_position else { return nil }
+		return ShowLiveLocationFormatter.formatLocation(location: location)
 	}
 }
